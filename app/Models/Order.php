@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['description','ubication','price','category_id','n_docu',];
+    protected $fillable = ['description','ubication','type', 'price','category_id','n_docu',];
 
 
     public function category():BelongsTo

@@ -31,6 +31,10 @@ class OrderResource extends Resource
                                                         ->rule('numeric'),
                 Forms\Components\Select::make('category_id')
                                                         ->relationship('category', 'name'),
+                Forms\Components\Radio::make('type') ->options([
+                                                            'Income' => 'Income',
+                                                            'Expense' => 'Expense',
+                ])
             ]);
     }
 
@@ -50,6 +54,8 @@ class OrderResource extends Resource
                                                     ->alignEnd(),
                 Tables\Columns\TextColumn::make('category.name')
                                                      ->label('Categoría'),
+                Tables\Columns\TextColumn::make('type')
+                                                    ->badge(),
             ])
             ->filters([
                 //
