@@ -34,11 +34,16 @@ class OrderResource extends Resource
                 Forms\Components\Radio::make('type') ->options([
                                                             'Income' => 'Income',
                                                             'Expense' => 'Expense',
-                ])
+                                                     ]),
+                Forms\Components\FileUpload::make('image')
+                                                    ->image()
+                                                    ->imageEditor()
+
             ]);
     }
 
     public static function table(Table $table): Table
+
     {
         return $table
             ->columns([
@@ -56,7 +61,11 @@ class OrderResource extends Resource
                                                      ->label('Categoría'),
                 Tables\Columns\TextColumn::make('type')
                                                     ->badge(),
+                Tables\Columns\ImageColumn::make('image')
+                                                
             ])
+
+
             ->filters([
                 //
             ])
@@ -81,8 +90,8 @@ class OrderResource extends Resource
     {
         return [
             'index' => Pages\ListOrders::route('/'),
-            'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+           // 'create' => Pages\CreateOrder::route('/create'),
+          //  'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 }
