@@ -62,7 +62,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('type')
                                                     ->badge(),
                 Tables\Columns\ImageColumn::make('image')
-                                                
+
             ])
 
 
@@ -82,7 +82,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\OrderlinesRelationManager::class,
         ];
     }
 
@@ -90,8 +90,8 @@ class OrderResource extends Resource
     {
         return [
             'index' => Pages\ListOrders::route('/'),
-           // 'create' => Pages\CreateOrder::route('/create'),
-          //  'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'create' => Pages\CreateOrder::route('/create'),
+            'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 }
