@@ -35,9 +35,7 @@ class OrderResource extends Resource
                                                             'Income' => 'Income',
                                                             'Expense' => 'Expense',
                                                      ]),
-                Forms\Components\FileUpload::make('image')
-                                                    ->image()
-                                                    ->imageEditor()
+
 
             ]);
     }
@@ -61,7 +59,7 @@ class OrderResource extends Resource
                                                      ->label('Categoría'),
                 Tables\Columns\TextColumn::make('type')
                                                     ->badge(),
-                Tables\Columns\ImageColumn::make('image')
+
 
             ])
 
