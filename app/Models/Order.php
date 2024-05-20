@@ -19,7 +19,7 @@ class Order extends Model
     {
         return $this->belongsTo(Category::class);
     }
-    public function orderlineas(): HasMany
+    public function orderlines(): HasMany
    {
        return $this->hasMany(Orderlines::class);
    }
