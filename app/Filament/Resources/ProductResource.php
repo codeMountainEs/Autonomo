@@ -31,10 +31,7 @@ class ProductResource extends Resource
                 Forms\Components\FileUpload::make('image')
                                                 ->image()
                                                 ->imageEditor(),
-               SpatieMediaLibraryFileUpload::make('images')
-                                                ->collection('order-images')
-                                               ->multiple()
-                                               ->image(),
+                
             ]);
     }
 
@@ -52,8 +49,6 @@ class ProductResource extends Resource
                                                     })
                                                     ->alignEnd(),
                 Tables\Columns\ImageColumn::make('image'),
-                SpatieMediaLibraryImageColumn::make('images')
-                                                   ->collection('images'),
                 Tables\Columns\ToggleColumn::make('is_active'),
             ])
             ->filters([
