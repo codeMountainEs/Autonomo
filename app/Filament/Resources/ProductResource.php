@@ -7,8 +7,10 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -28,12 +30,14 @@ class ProductResource extends Resource
                                                         ->rule('numeric'),
                 Forms\Components\FileUpload::make('image')
                                                 ->image()
-                                                ->imageEditor()
+                                                ->imageEditor(),
+                
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()
@@ -44,7 +48,8 @@ class ProductResource extends Resource
                                             return $record->price / 100;
                                                     })
                                                     ->alignEnd(),
-                Tables\Columns\ImageColumn::make('image')
+                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\ToggleColumn::make('is_active'),
             ])
             ->filters([
                 //

@@ -11,8 +11,9 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','price','image'];
-    public function orderlineas():HasMany
+         protected $fillable = ['name','price','image','is_active'];
+   
+       public function orderlineas():HasMany
    {
         return $this->hasMany(Orderlines::class);
    }
