@@ -73,3 +73,4 @@ Iniciar Pest:
     composer require pestphp/pest-plugin-livewire --dev
     composer require pestphp/pest-plugin-laravel --dev
     php vendor/bin/pest --init
+    Para saber las rutas GET/HEAD php artisan route:list
