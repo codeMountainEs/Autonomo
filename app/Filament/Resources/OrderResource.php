@@ -6,9 +6,11 @@ use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -35,9 +37,11 @@ class OrderResource extends Resource
                                                             'Income' => 'Income',
                                                             'Expense' => 'Expense',
                                                      ]),
-                Forms\Components\FileUpload::make('image')
-                                                    ->image()
-                                                    ->imageEditor()
+                SpatieMediaLibraryFileUpload::make('image')
+                                                     ->collection('order-images')
+                                                    ->multiple()
+                                                    ->image(),
+
 
             ]);
     }
@@ -61,8 +65,10 @@ class OrderResource extends Resource
                                                      ->label('Categoría'),
                 Tables\Columns\TextColumn::make('type')
                                                     ->badge(),
-                Tables\Columns\ImageColumn::make('image')
-                                                
+                SpatieMediaLibraryImageColumn::make('image')
+                                                     ->collection('images'),
+
+
             ])
 
 
@@ -82,7 +88,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\OrderlinesRelationManager::class,
         ];
     }
 
@@ -90,8 +96,8 @@ class OrderResource extends Resource
     {
         return [
             'index' => Pages\ListOrders::route('/'),
-           // 'create' => Pages\CreateOrder::route('/create'),
-          //  'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'create' => Pages\CreateOrder::route('/create'),
+            'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
 }

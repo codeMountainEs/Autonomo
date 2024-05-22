@@ -15,35 +15,32 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'name' => 'Alimentación',
+            'tipo' => 'alimentacion',
         ]);
 
         Category::create([
             'name' => 'Combustible',
+            'tipo' => 'combustible',
         ]);
-
 
         Category::create([
             'name' => 'Ropa',
+            'tipo' => 'ropa',
         ]);
-
 
         Category::create([
             'name' => 'Calzado',
+            'tipo' => 'calzado',
         ]);
-
 
         Category::create([
             'name' => 'Materias Primas',
+            'tipo' => 'materias_primas',
         ]);
 
         Category::create([
             'name' => 'Servicios Prestados',
+            'tipo' => 'servicios_prestados',
         ]);
-
-
-
-
-
     }
-
 }

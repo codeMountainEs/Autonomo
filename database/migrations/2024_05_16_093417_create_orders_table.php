@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('ubication')->nullable();
             $table->integer('price')->nullable();
             $table->foreignId('category_id')->nullable()->constrained();
+            $table->text('image')->nullable();
             $table->enum('type',
                               ['Income','Expense']);
             $table->timestamps();
