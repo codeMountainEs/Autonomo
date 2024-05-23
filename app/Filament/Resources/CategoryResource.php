@@ -26,6 +26,9 @@ class CategoryResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+                Forms\Components\TextInput::make('tipo')
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 
@@ -34,15 +37,17 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                                          ->searchable(),
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('tipo')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('created_at')
-                                          ->dateTime()
-                                          ->sortable()
-                                          ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
-                                          ->dateTime()
-                                          ->sortable()
-                                          ->toggleable(isToggledHiddenByDefault: true),
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
