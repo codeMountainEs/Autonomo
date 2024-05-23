@@ -18,4 +18,7 @@ class Orderlines extends Model
    {
         return $this->belongsTo(Product::class);
    }
+   protected $attributes = [
+    'import' => 0,
+];
 }
