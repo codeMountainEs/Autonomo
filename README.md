@@ -64,3 +64,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Testing
+
+Iniciar Pest:
+    composer remove phpunit/phpunit
+    composer require pestphp/pest --dev --with-all-dependencies
+    composer require pestphp/pest-plugin-livewire --dev
+    composer require pestphp/pest-plugin-laravel --dev
+    php vendor/bin/pest --init
+    Para saber las rutas GET/HEAD php artisan route:list
