@@ -25,10 +25,28 @@ class OrderlinesRelationManager extends RelationManager
                     Forms\Components\Select::make('product_id')
                         ->relationship('product', 'name'),
                     Forms\Components\TextInput::make('quantity')->required()
-                                                ->rule('numeric'),
+                                                ->rule('numeric')
+                                                ->minValue(0.01)
+                                                ->validationMessages([
+                                                    'required' => 'The amount is required.',
+                                                    'numeric' => 'The amount must be a number.',
+                                                    'min' => 'La cantidad mínima debe ser 1',
+                                                ]),
                     Forms\Components\TextInput::make('price')->required()
-                                                ->rule('numeric'),
-                    Forms\Components\TextInput::make('import')->required()->rule('numeric'),
+                                                ->rule('numeric')
+                                                ->minValue(0.01)
+                                                        ->validationMessages([
+                                                            'required' => 'The amount is required.',
+                                                            'numeric' => 'The amount must be a number.',
+                                                            'min' => 'El importe debe ser superior a cero',
+                                                        ]),
+                    Forms\Components\TextInput::make('import')->required()
+                                                ->rule('numeric')->minValue(0.01)
+                                                ->validationMessages([
+                                                    'required' => 'The amount is required.',
+                                                    'numeric' => 'The amount must be a number.',
+                                                    'min' => 'El importe debe ser superior a cero',
+                                                ]),
                     ]);
     }
 
@@ -43,6 +61,7 @@ class OrderlinesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('description')->sortable()
                                                      ->searchable(),
                 Tables\Columns\TextColumn::make('quantity'),
+
                 Tables\Columns\TextColumn::make('price')->sortable()
                                                     ->money('EUR')
                                                     ->getStateUsing(function (Orderlines $record): float {

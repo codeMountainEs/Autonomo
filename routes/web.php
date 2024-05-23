@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//Route::resource('orders', OrderController::class);
 Route::get('/', function () {
     return view('welcome');
 });
+// ruta para ordercontroller: Route::resource('orders', OrderController::class);
