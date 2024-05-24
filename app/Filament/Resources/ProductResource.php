@@ -27,17 +27,23 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
                 Forms\Components\TextInput::make('price')->required()
-                                                        ->rule('numeric'),
+                                                        ->rule('numeric')
+                                                        ->minValue(0.01)
+                                                        ->validationMessages([
+                                                            'required' => 'The amount is required.',
+                                                            'numeric' => 'The amount must be a number.',
+                                                            'min' => 'El importe debe ser superior a cero',
+                                                        ]),
                 Forms\Components\FileUpload::make('image')
                                                 ->image()
                                                 ->imageEditor(),
-                
+
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        
+
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()

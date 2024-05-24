@@ -12,7 +12,13 @@ class CreateProduct extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
+        if ($data['price'] <= 0) {
+            throw \Illuminate\Validation\ValidationException::withMessages([
+                'price' => 'El importe debe ser superior a cero',
+            ]);
+        }
         $data['price'] = $data['price'] * 100;
         return $data;
+
     }
 }
