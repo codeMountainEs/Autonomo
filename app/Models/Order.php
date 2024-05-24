@@ -24,6 +24,12 @@ class Order extends Model implements HasMedia
    {
        return $this->hasMany(Orderlines::class);
    }
+   public function calculateTotalPrice()
+    {
+        return $this->orderlines->sum(function ($orderline) {
+            return $orderline->price * $orderline->quantity;
+        });
+    }
 
 
 }

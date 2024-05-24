@@ -29,9 +29,16 @@ class OrderResource extends Resource
 
                 Forms\Components\TextInput::make('ubication')->required(),
 
-                Forms\Components\TextInput::make('price')->required()
+                Forms\Components\TextInput::make('price')->required()->suffix('€')
                                                         ->rule('numeric')
                                                         ->minValue(0.01)
+                                                        //->disabled() // Disabled because it is calculated
+                                                        ->default(0) // Default value set to 0
+                                                        ->afterStateHydrated(function ($state, $set, $record) {
+                                                            if ($record) {
+                                                                $set('price', $record->calculateTotalPrice() / 100); // Adjust based on your currency handling
+                                                            }
+                    })
                                                         ->validationMessages([
                                                             'required' => 'The amount is required.',
                                                             'numeric' => 'The amount must be a number.',
@@ -61,7 +68,7 @@ class OrderResource extends Resource
                                                     ->searchable(),
                 Tables\Columns\TextColumn::make('ubication')->sortable()
                                                     ->searchable(),
-                Tables\Columns\TextColumn::make('price')->sortable()
+                Tables\Columns\TextColumn::make('price')->sortable()->suffix('€')
                                                     ->money('EUR')
                                                     ->getStateUsing(function (Order $record): float {
                                                         return $record->price / 100;

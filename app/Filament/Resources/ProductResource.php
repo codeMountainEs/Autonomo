@@ -26,7 +26,7 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('price')->required()
+                Forms\Components\TextInput::make('price')->required()->suffix('€')
                                                         ->rule('numeric')
                                                         ->minValue(0.01)
                                                         ->validationMessages([
@@ -48,7 +48,7 @@ class ProductResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')->sortable()
                                                     ->searchable(),
-                Tables\Columns\TextColumn::make('price')->sortable()
+                Tables\Columns\TextColumn::make('price')->sortable()->suffix('€')
                                                     ->money('EUR')
                                                     ->getStateUsing(function (Product $record): float {
                                             return $record->price / 100;

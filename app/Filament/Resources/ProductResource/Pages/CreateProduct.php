@@ -10,7 +10,7 @@ class CreateProduct extends CreateRecord
 {
     protected static string $resource = ProductResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+     protected function mutateFormDataBeforeCreate(array $data): array
     {
         if ($data['price'] <= 0) {
             throw \Illuminate\Validation\ValidationException::withMessages([
