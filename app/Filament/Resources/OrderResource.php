@@ -37,9 +37,6 @@ class OrderResource extends Resource
                 Forms\Components\TextInput::make('ubication')->required(),
 
                 Forms\Components\TextInput::make('price')->required()
-<<<<<<< HEAD
-                    ->rule('numeric'),
-=======
                                                         ->rule('numeric')
                                                         ->minValue(0.01)
                                                         ->validationMessages([
@@ -47,7 +44,6 @@ class OrderResource extends Resource
                                                             'numeric' => 'The amount must be a number.',
                                                             'min' => 'El importe debe ser superior a cero',
                                                         ]),
->>>>>>> 11e1411340113bd82820817872f59eca616bf76f
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name'),
                 Forms\Components\Radio::make('type')->options([
