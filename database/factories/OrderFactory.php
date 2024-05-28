@@ -21,8 +21,8 @@ class OrderFactory extends Factory
             'description' => $this->faker->sentence,
             'ubication' => $this->faker->address,
             'price' => $this->faker->numberBetween(100, 10000),
-            'category_id' => null, // Ajusta según tus necesidades
-            'image' => $this->faker->imageUrl(), // Podrías usar una imagen de prueba
+            'category_id' => null,
+            'image' => $this->faker->imageUrl(),
             'type' => $this->faker->randomElement(['Income', 'Expense']),
         ];
     }
