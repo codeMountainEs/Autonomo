@@ -3,8 +3,10 @@
 namespace App\Filament\Resources\OrderResource\RelationManagers;
 
 use App\Models\Orderlines;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Forms\Set;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -15,41 +17,58 @@ class OrderlinesRelationManager extends RelationManager
 {
     protected static string $relationship = 'Orderlines';
 
-    public function form(Form $form): Form
-    {
-        return $form
-           ->schema([
-                    Forms\Components\TextInput::make('description')
-                        ->required()
-                        ->maxLength(255),
-                    Forms\Components\Select::make('product_id')
-                        ->relationship('product', 'name'),
-                    Forms\Components\TextInput::make('quantity')->required()
-                                                ->rule('numeric')
-                                                ->minValue(0.01)
-                                                ->validationMessages([
-                                                    'required' => 'The amount is required.',
-                                                    'numeric' => 'The amount must be a number.',
-                                                    'min' => 'La cantidad mínima debe ser 1',
-                                                ]),
-                    Forms\Components\TextInput::make('price')->required()
-                                                ->rule('numeric')
-                                                ->minValue(0.01)
-                                                        ->validationMessages([
-                                                            'required' => 'The amount is required.',
-                                                            'numeric' => 'The amount must be a number.',
-                                                            'min' => 'El importe debe ser superior a cero',
-                                                        ]),
-                    Forms\Components\TextInput::make('import')->required()
-                                                ->rule('numeric')->minValue(0.01)
-                                                ->validationMessages([
-                                                    'required' => 'The amount is required.',
-                                                    'numeric' => 'The amount must be a number.',
-                                                    'min' => 'El importe debe ser superior a cero',
-                                                ]),
-                    ]);
-    }
+   public function form(Form $form): Form
+{
+    return $form
+        ->schema([
+            Forms\Components\TextInput::make('description')
+                ->required()
+                ->maxLength(255),
 
+            Forms\Components\Select::make('product_id')
+                ->relationship('product', 'name'),
+
+            Forms\Components\TextInput::make('quantity')
+                ->required()
+                ->rule('numeric')
+                ->minValue(0.01)
+                ->reactive()
+                ->afterStateUpdated(function (Set $set, $state, $get) {
+                    $set('import', ($get('price') ?? 0) * ($state ?? 0) * 100); // Multiplicar por 100
+                })
+                ->validationMessages([
+                    'required' => 'The amount is required.',
+                    'numeric' => 'The amount must be a number.',
+                    'min' => 'La cantidad mínima debe ser 1',
+                ]),
+
+            Forms\Components\TextInput::make('price')
+                ->required()
+                ->rule('numeric')
+                ->minValue(0.01)
+                ->reactive()
+                ->afterStateUpdated(function (Set $set, $state, $get) {
+                    $set('import', ($state ?? 0) * ($get('quantity') ?? 0) * 100); // Multiplicar por 100
+                })
+                ->validationMessages([
+                    'required' => 'The amount is required.',
+                    'numeric' => 'The amount must be a number.',
+                    'min' => 'El importe debe ser superior a cero',
+                ]),
+
+            Forms\Components\TextInput::make('import')
+                ->disabled()
+                ->default(0)
+                ->dehydrated(false)
+                ->rule('numeric')
+                ->minValue(0.01)
+                ->validationMessages([
+                    'required' => 'The amount is required.',
+                    'numeric' => 'The amount must be a number.',
+                    'min' => 'El importe debe ser superior a cero',
+                ]),
+        ]);
+}
     public function table(Table $table): Table
     {
         return $table
