@@ -24,6 +24,7 @@ class OrderFactory extends Factory
             'category_id' => null, // Ajusta según tus necesidades
             'image' => $this->faker->imageUrl(), // Podrías usar una imagen de prueba
             'type' => $this->faker->randomElement(['Income', 'Expense']),
+            'created_at'=> $this->faker->dateTimeBetween(startDate:'-3 months', endDate:'now'),
         ];
     }
 }
