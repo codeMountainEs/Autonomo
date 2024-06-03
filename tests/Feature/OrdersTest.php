@@ -2,6 +2,7 @@
 
 use App\Filament\Resources\OrderResource;
 use App\Models\Order;
+use App\Models\Orderlines;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\UploadedFile;
@@ -51,5 +52,13 @@ it('puede crear un order con image', function () {
     $url = route('filament.admin.resources.orders.edit', ['record' => $orderImage]);
 
     // Verifica que la página de edición se pueda renderizar
+    $this->get($url)->assertSuccessful();
+});
+
+it('crear un OrderLines', function () {
+    $orderlines = Orderlines::factory()->create();
+
+    $url = route('filament.admin.resources.orders.edit', ['record' => $orderlines]);
+
     $this->get($url)->assertSuccessful();
 });
