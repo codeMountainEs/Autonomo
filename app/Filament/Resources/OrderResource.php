@@ -55,21 +55,21 @@ class OrderResource extends Resource
                     ->schema([
                     Group::make()->schema([
                     TagsInput::make('tags')->required(),
-                    ]),       
+                    ]),
 
-                       
+
                 SpatieMediaLibraryFileUpload::make('image')
                     ->collection('order-images')
                     ->multiple()
                     ->image(),
                 ])->columnSpan(1),
-                    
+
                 Group::make()->schema([
-                    
+
                 ]),
 
                     ])->columns(2);
-            
+
     }
 
     public static function table(Table $table): Table
@@ -93,6 +93,14 @@ class OrderResource extends Resource
                     ->badge(),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('images'),
+                    Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
 
             ])
@@ -124,6 +132,12 @@ class OrderResource extends Resource
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+        ];
+    }
+    public static function getWidgets(): array
+    {
+        return [
+           //StatsOverview::class,
         ];
     }
 }
