@@ -46,10 +46,12 @@ class OrderResource extends Resource
                                                         ]),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name'),
+
                 Forms\Components\Radio::make('type')->options([
-                    'Income' => 'Income',
-                    'Expense' => 'Expense',
+                                                           'Income' => 'Income',
+                                                           'Expense' => 'Expense',
                 ]),
+                                                    
             ])->columnSpan(1)->columns(2),
             Section::make('Meta')
                     ->schema([
@@ -126,4 +128,12 @@ class OrderResource extends Resource
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
     }
+
+    public static function getWidgets(): array
+    {
+        return  [
+
+        ];
+    }
+    
 }

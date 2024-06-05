@@ -21,7 +21,7 @@ class DashboardResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            StatsOverview::class,
+           // StatsOverview::class,
         ];
     }
 }
