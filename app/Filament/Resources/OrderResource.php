@@ -26,6 +26,9 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 1; //orden de aparición en app
+
+
     public static function form(Form $form): Form
     {
         return $form
@@ -55,21 +58,21 @@ class OrderResource extends Resource
                     ->schema([
                     Group::make()->schema([
                     TagsInput::make('tags')->required(),
-                    ]),       
+                    ]),
 
-                       
+
                 SpatieMediaLibraryFileUpload::make('image')
                     ->collection('order-images')
                     ->multiple()
                     ->image(),
                 ])->columnSpan(1),
-                    
+
                 Group::make()->schema([
-                    
+
                 ]),
 
                     ])->columns(2);
-            
+
     }
 
     public static function table(Table $table): Table
@@ -93,6 +96,14 @@ class OrderResource extends Resource
                     ->badge(),
                 SpatieMediaLibraryImageColumn::make('image')
                     ->collection('images'),
+                    Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
 
 
             ])
@@ -124,6 +135,12 @@ class OrderResource extends Resource
             'index' => Pages\ListOrders::route('/'),
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
+        ];
+    }
+    public static function getWidgets(): array
+    {
+        return [
+           //StatsOverview::class,
         ];
     }
 }
